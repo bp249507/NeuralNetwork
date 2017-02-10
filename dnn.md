@@ -45,6 +45,7 @@ I am going to use two approaches using two different activation functions for th
 ### Using sigmoid activation and mean squared error (loss function)
 Steps: 
 #### Forward propogation:<br>
+![f_prop](http://latex.codecogs.com/gif.latex?%5Clarge%20%5C%5C%20z%5E%7B2%7D%20%3D%20%28W%5E%7B1%7D%29%5E%7BT%7DX%20&plus;%20b%5E%7B1%7D%20%5C%5C%20a%5E%7B2%7D%20%3D%20sigmod%28z%5E%7B2%7D%29%20%5C%5C%20where%20%5C%5C%20sigmoid%28z%29%3D%20%5Cfrac%7B1%7D%7B1&plus;e%5E%7B-z%7D%7D%5C%5C%20z%5E%7B3%7D%20%3D%20%28W%5E%7B2%7D%29%5E%7BT%7Da%5E%7B2%7D%20&plus;%20b%5E%7B2%7D%5C%5C%20a%5E%7B3%7D%20%3D%20sigmod%28z%5E%7B3%7D%29)
 $z^{2} = (W^{1})^{T}X + b^{1}$ <br>
 $a^{2} = sigmod(z^{2})$    where $sigmoid(z)= \frac{1}{1+e^{-z}}$
 
