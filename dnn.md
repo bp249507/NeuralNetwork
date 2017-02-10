@@ -50,7 +50,7 @@ Steps:
 
 #### Cost Function: (m examples and k outputs)<br>
 ![cost](http://latex.codecogs.com/gif.latex?%5Clarge%20%5C%5C%20J%20%3D%20%5Cfrac%7B1%7D%7Bm%7D%20%5Csum_%7Bi%7D%5E%7Bm%7D%20%5Csum_%7Bk%7D%20%28a%5E%7B3%7D_%7Bk%7D-y_%7Bk%7D%29%5E%7B2%7D)<br>
-!$J = \frac{1}{m} \sum_{i}^{m} \sum_{k} (a^{3}_{k}-y_{k})^{2} $
+
 
 #### Back propagation:<br>
 ![back_prop](http://latex.codecogs.com/gif.latex?%5Clarge%20%5C%5C%20%5Cfrac%7B%5Cpartial%20J%7D%7B%5Cpartial%20z%5E%7B3%7D%7D%20%3D%20%5Cdelta%20%5E%7B3%7D%20%3D%20%28a%5E%7B3%7D-y%29%5Codot%20f%27%28z%5E%7B3%7D%29%5C%5C%20%5Cdelta%20%5E%7B2%7D%20%3D%20%28W%5E%7B2%7D%29%5E%7BT%7D%5Cdelta%20%5E%7B3%7D%20%5Codot%20f%27%28z%5E%7B2%7D%29%20%5C%5C)
@@ -58,23 +58,9 @@ Steps:
 ![back_prop_2](http://latex.codecogs.com/gif.latex?%5Clarge%20%5C%5C%20%5Cfrac%7B%5Cpartial%20J%7D%7B%5Cpartial%20W%5E%7B2%7D%7D%20%3D%20%28a%5E%7B2%7D%29%5E%7BT%7D%20%5Cdelta%5E%7B3%7D%5C%5C%20%5Cfrac%7B%5Cpartial%20J%7D%7B%5Cpartial%20b%5E%7B2%7D%7D%20%3D%20%5Csum%5E%7Bm%7D%20%5Cdelta%5E%7B3%7D%20%5C%5C%20%5Cfrac%7B%5Cpartial%20J%7D%7B%5Cpartial%20W%5E%7B1%7D%7D%20%3D%20X%5E%7BT%7D%20%5Cdelta%5E%7B2%7D%20%5C%5C%20%5Cfrac%7B%5Cpartial%20J%7D%7B%5Cpartial%20b%5E%7B1%7D%7D%20%3D%20%5Csum%5E%7Bm%7D%5Cdelta%5E%7B2%7D%20%5C%5C)
 
 
-!$\frac{\partial J}{\partial z^{3}} = \delta ^{3} = (a^{3}-y)\odot f'(z^{3})$    size [m, k]
-
-
-!$\delta ^{2} = (W^{2})^{T}\delta ^{3} \odot f'(z^{2}) $  ---------size [m,  n_hidden] <br>
-!$\odot $represents item wise product
-
-!$\frac{\partial J}{\partial W^{2}} = (a^{2})^{T} \delta^{3} $  matrix of size [n_hidden, k]<br>
-!$\frac{\partial J}{\partial b^{2}} = \sum^{m} \delta^{3} $ vector of size [1,k]<br> 
-!$\frac{\partial J}{\partial W^{1}} = X^{T} \delta^{2} $ matrix of size [n_input, n_hidden]<br>
-!$\frac{\partial J}{\partial b^{1}} = \sum^{m}\delta^{2} $ vector of size [1, n_hidden]<br>
-
 
 #### Updates:<br>
 ![updates](http://latex.codecogs.com/gif.latex?%5Clarge%20%5C%5C%20W%5E%7Bl%7D%20%3D%20W%5E%7Bl%7D%20-%20%5Calpha%20%5Cfrac%7B%5Cpartial%20J%7D%7B%5Cpartial%20W%5E%7Bl%7D%7D%5C%5C%20b%5E%7Bl%7D%20%3D%20b%5E%7Bl%7D%20-%20%5Calpha%20%5Cfrac%7B%5Cpartial%20J%7D%7B%5Cpartial%20b%5E%7Bl%7D%7D)
-
-$W^{l} = W^{l} - \alpha \frac{\partial J}{\partial W^{l}}$
-$b^{l} = b^{l} - \alpha \frac{\partial J}{\partial b^{l}}$
 
 
 ```python
@@ -204,15 +190,7 @@ If ![y](http://latex.codecogs.com/gif.latex?%5Cinline%20%5Clarge%20%5C%5C%20y%20
 i.e. k classes; softmax(y) is <br>
 
 ![soft_max](http://latex.codecogs.com/gif.latex?%5Clarge%20%5C%5C%20softmax%28y%29%3D%20%5Cfrac%7B1%7D%7B%5Csum_%7Bi%7D%20e%5E%7By_%7Bi%7D%7D%7D%20%5Cbegin%7Bbmatrix%7D%20e%5E%7By_%7B1%7D%7D%5C%5C%20e%5E%7By_%7B2%7D%7D%5C%5C%20%5Cvdots%20%5C%5C%20e%5E%7By_%7Bk%7D%7D%5C%5C%20%5Cend%7Bbmatrix%7D)
-\begin{align}
-softmax(y)= \frac{1}{\sum_{i} e^{y_{i}}} 
-\begin{bmatrix} 
-e^{y_{1}}\\
-e^{y_{2}}\\
-\vdots \\
-e^{y_{k}}\\
-\end{bmatrix}
-\end{align}
+
 
 #### Differentiation of Softmax function:
 Consider ![p](http://latex.codecogs.com/gif.latex?%5Cinline%20%5Clarge%20%5C%5C%20p%20%3D%20%5Cfrac%7Be%5E%7By_%7Bi%7D%7D%7D%7B%5Csum_%7Bi%7De%5E%7By_%7Bi%7D%7D%7D) <br>
@@ -220,41 +198,23 @@ Consider ![p](http://latex.codecogs.com/gif.latex?%5Cinline%20%5Clarge%20%5C%5C%
 ![derivative_p](http://latex.codecogs.com/gif.latex?%5C%5C%20%5Cfrac%7B%5Cpartial%20p%7D%7B%5Cpartial%20y_%7Bi%7D%7D%20%3D%20%5Cfrac%7B1%7D%7B%5Csum_%7Bi%7De%5E%7By_%7Bi%7D%7D%7D%20%5Cfrac%7B%5Cpartial%20e%5E%7By_%7Bi%7D%7D%7D%7B%5Cpartial%20y_%7Bi%7D%7D%20&plus;%20e%5E%7By_%7Bi%7D%7D%5Cfrac%7B%5Cpartial%7D%7B%5Cpartial%20y_%7Bi%7D%7D%20%5Cfrac%7B1%7D%7B%5Csum_%7Bi%7De%5E%7By_%7Bi%7D%7D%7D%20%3D%20%5Cfrac%7Be%5E%7By_%7Bi%7D%7D%7D%7B%5Csum_%7Bi%7De%5E%7By_%7Bi%7D%7D%7D%20-%20e%5E%7By_%7Bi%7D%7D%5Cfrac%7Be%5E%7By_%7Bi%7D%7D%7D%7B%28%5Csum_%7Bi%7De%5E%7By_%7Bi%7D%7D%29%5E%7B2%7D%7D%20%3D%20p%281-p%29) <br>
 
 
-$\frac{\partial p}{\partial y_{i}} = \frac{1}{\sum_{i}e^{y_{i}}} \frac{\partial e^{y_{i}}}{\partial y_{i}} + e^{y_{i}}\frac{\partial}{\partial y_{i}} \frac{1}{\sum_{i}e^{y_{i}}} = \frac{e^{y_{i}}}{\sum_{i}e^{y_{i}}} -  e^{y_{i}}\frac{e^{y_{i}}}{(\sum_{i}e^{y_{i}})^{2}} = p(1-p)$
+
 
 
 #### Forward propogation:<br>
-$z^{2} = (W^{1})^{T}X + b^{1}$ <br>
-$a^{2} = sigmod(z^{2})$    where $sigmoid(z)= \frac{1}{1+e^{-z}}$
-
-$z^{3} = (W^{2})^{T}a^{2} + b^{2}$ <br>
-$a^{3} = softmax(z^{3})$ <br>
+![soft_fp](http://latex.codecogs.com/gif.latex?%5Clarge%20%5C%5C%20z%5E%7B2%7D%20%3D%20%28W%5E%7B1%7D%29%5E%7BT%7DX%20&plus;%20b%5E%7B1%7D%5C%5C%20a%5E%7B2%7D%20%3D%20sigmod%28z%5E%7B2%7D%29%5C%5C%20z%5E%7B3%7D%20%3D%20%28W%5E%7B2%7D%29%5E%7BT%7Da%5E%7B2%7D%20&plus;%20b%5E%7B2%7D%5C%5C%20a%5E%7B3%7D%20%3D%20softmax%28z%5E%7B3%7D%29%5C%5C)
 
 #### Cost Function: (m examples and k outputs)<br>
-$J = - \frac{1}{m} \sum_{m} \sum_{i} y_{i}.log(y^{'}_{i}) $ <br>
-$y^{'}=a^{3}$ is the predicted output i.e. softmax($z^{3}$) in this case. <br>
-$J = - \sum_{i} y_{i}.log \frac{e^{z^{3}_{i}}}{\sum_{i}e^{z^{3}_{i}}} $  [$\sum_{m}$ is suppressed.]<br> 
-$J = - \sum_{i}( y_{i}.z^{3}_{i} - y_{i}log\sum e^{z^{3}_{i}}) $ <br>
-$J = - ( y_{i}.z^{3}_{i} - y_{i}log\sum_{i} e^{z^{3}_{i}} + \sum_{k \ne i} [y_{k}z^{3}_{k} -y_{k}log\sum_{i} e^{z^{3}_{i}}]) $ <br>
-
-$\frac{\partial J}{\partial z^{3}_{i}} = -\begin{bmatrix}y_{i} - y_{i} \frac{e^{z^{3}_{i}}}{\sum_{i}e^{z^{3}_{i}}} - \sum_{k \ne i} y_{k} \frac{e^{z^{3}_{i}}}{\sum_{i} e^{z^{3}_{i}}}\end{bmatrix} = -\begin{bmatrix}y_{i} - \frac{e^{z^{3}_{i}}}{\sum_{i}e^{z^{3}_{i}}} \sum_{i} y_{i}\end{bmatrix} = (a^{3}_{i}-y_{i})$ since $\sum y = 1$
-
-$\delta^{3} = (a^{3}_{i}-y_{i})$
+![soft_cf](http://latex.codecogs.com/gif.latex?%5Clarge%20%5C%5C%20J%20%3D%20-%20%5Cfrac%7B1%7D%7Bm%7D%20%5Csum_%7Bm%7D%20%5Csum_%7Bi%7D%20y_%7Bi%7D.log%28y%5E%7B%27%7D_%7Bi%7D%29%20%5C%5C%20y%5E%7B%27%7D%3Da%5E%7B3%7D%24%20is%20the%20predicted%20output%20i.e.%20softmax%28%24z%5E%7B3%7D%24%29%20in%20this%20case.%20%5C%5C%20%24J%20%3D%20-%20%5Csum_%7Bi%7D%20y_%7Bi%7D.log%20%5Cfrac%7Be%5E%7Bz%5E%7B3%7D_%7Bi%7D%7D%7D%7B%5Csum_%7Bi%7De%5E%7Bz%5E%7B3%7D_%7Bi%7D%7D%7D%20%24%20%5B%24%5Csum_%7Bm%7D%24%20is%20suppressed.%5D%5C%5C%20%24J%20%3D%20-%20%5Csum_%7Bi%7D%28%20y_%7Bi%7D.z%5E%7B3%7D_%7Bi%7D%20-%20y_%7Bi%7Dlog%5Csum%20e%5E%7Bz%5E%7B3%7D_%7Bi%7D%7D%29%20%24%20%5C%5C%20%24J%20%3D%20-%20%28%20y_%7Bi%7D.z%5E%7B3%7D_%7Bi%7D%20-%20y_%7Bi%7Dlog%5Csum_%7Bi%7D%20e%5E%7Bz%5E%7B3%7D_%7Bi%7D%7D%20&plus;%20%5Csum_%7Bk%20%5Cne%20i%7D%20%5By_%7Bk%7Dz%5E%7B3%7D_%7Bk%7D%20-y_%7Bk%7Dlog%5Csum_%7Bi%7D%20e%5E%7Bz%5E%7B3%7D_%7Bi%7D%7D%5D%29%20%24%20%5C%5C%20%24%5Cfrac%7B%5Cpartial%20J%7D%7B%5Cpartial%20z%5E%7B3%7D_%7Bi%7D%7D%20%3D%20-%5Cbegin%7Bbmatrix%7Dy_%7Bi%7D%20-%20y_%7Bi%7D%20%5Cfrac%7Be%5E%7Bz%5E%7B3%7D_%7Bi%7D%7D%7D%7B%5Csum_%7Bi%7De%5E%7Bz%5E%7B3%7D_%7Bi%7D%7D%7D%20-%20%5Csum_%7Bk%20%5Cne%20i%7D%20y_%7Bk%7D%20%5Cfrac%7Be%5E%7Bz%5E%7B3%7D_%7Bi%7D%7D%7D%7B%5Csum_%7Bi%7D%20e%5E%7Bz%5E%7B3%7D_%7Bi%7D%7D%7D%5Cend%7Bbmatrix%7D%20%5C%5C%3D%20-%5Cbegin%7Bbmatrix%7Dy_%7Bi%7D%20-%20%5Cfrac%7Be%5E%7Bz%5E%7B3%7D_%7Bi%7D%7D%7D%7B%5Csum_%7Bi%7De%5E%7Bz%5E%7B3%7D_%7Bi%7D%7D%7D%20%5Csum_%7Bi%7D%20y_%7Bi%7D%5Cend%7Bbmatrix%7D%20%3D%20%28a%5E%7B3%7D_%7Bi%7D-y_%7Bi%7D%29%24%20since%20%24%5Csum%20y%20%3D%201%24%20%5C%5C%20%5C%5C%20%24%5Cdelta%5E%7B3%7D%20%3D%20%28a%5E%7B3%7D_%7Bi%7D-y_%7Bi%7D%29%24)<br>
 
 #### Back propagation:<br>
-$\frac{\partial J}{\partial z^{3}} = \delta ^{3} = (a^{3}-y)$    size [m, k]
+![soft_bp](http://latex.codecogs.com/gif.latex?%5Clarge%20%5C%5C%20%5Cfrac%7B%5Cpartial%20J%7D%7B%5Cpartial%20z%5E%7B3%7D%7D%20%3D%20%5Cdelta%20%5E%7B3%7D%20%3D%20%28a%5E%7B3%7D-y%29%20%5C%5C%20%5Cdelta%20%5E%7B2%7D%20%3D%20%28W%5E%7B2%7D%29%5E%7BT%7D%5Cdelta%20%5E%7B3%7D%20%5Codot%20f%27%28z%5E%7B2%7D%29%20%5C%5C%20%5Cfrac%7B%5Cpartial%20J%7D%7B%5Cpartial%20W%5E%7B2%7D%7D%20%3D%20%28a%5E%7B2%7D%29%5E%7BT%7D%20%5Cdelta%5E%7B3%7D%20%5C%5C%20%5Cfrac%7B%5Cpartial%20J%7D%7B%5Cpartial%20b%5E%7B2%7D%7D%20%3D%20%5Csum%5E%7Bm%7D%20%5Cdelta%5E%7B3%7D%20%5C%5C%20%5Cfrac%7B%5Cpartial%20J%7D%7B%5Cpartial%20W%5E%7B1%7D%7D%20%3D%20X%5E%7BT%7D%20%5Cdelta%5E%7B2%7D%20%5C%5C%20%5Cfrac%7B%5Cpartial%20J%7D%7B%5Cpartial%20b%5E%7B1%7D%7D%20%3D%20%5Csum%5E%7Bm%7D%5Cdelta%5E%7B2%7D)<br>
 
-$\delta ^{2} = (W^{2})^{T}\delta ^{3} \odot f'(z^{2}) $  ---------size [m,  n_hidden] <br>
-$\odot $represents item wise product
 
-$\frac{\partial J}{\partial W^{2}} = (a^{2})^{T} \delta^{3} $  matrix of size [n_hidden, k]<br>
-$\frac{\partial J}{\partial b^{2}} = \sum^{m} \delta^{3} $ vector of size [1,k]<br> 
-$\frac{\partial J}{\partial W^{1}} = X^{T} \delta^{2} $ matrix of size [n_input, n_hidden]<br>
-$\frac{\partial J}{\partial b^{1}} = \sum^{m}\delta^{2} $ vector of size [1, n_hidden]<br>
 
 #### Updates:<br>
-$W^{l} = W^{l} - \alpha \frac{\partial J}{\partial W^{l}}$
-$b^{l} = b^{l} - \alpha \frac{\partial J}{\partial b^{l}}$
+![updates](http://latex.codecogs.com/gif.latex?%5Clarge%20%5C%5C%20W%5E%7Bl%7D%20%3D%20W%5E%7Bl%7D%20-%20%5Calpha%20%5Cfrac%7B%5Cpartial%20J%7D%7B%5Cpartial%20W%5E%7Bl%7D%7D%5C%5C%20b%5E%7Bl%7D%20%3D%20b%5E%7Bl%7D%20-%20%5Calpha%20%5Cfrac%7B%5Cpartial%20J%7D%7B%5Cpartial%20b%5E%7Bl%7D%7D)
+
 
 
 #### Codes
@@ -567,40 +527,20 @@ Let's now add one more hidden layer.
 ## Neural net with 2 hidden layers
 
 #### Forward propogation:<br>
-$z^{2} = (W^{1})^{T}X + b^{1}$ <br>
-$a^{2} = sigmod(z^{2})$    
-
-$z^{3} = (W^{2})^{T}a^{2} + b^{2}$ <br>
-$a^{3} = sigmod(z^{3})$ <br>
-
-$z^{4} = (W^{3})^{T}a^{3} + b^{3}$ <br>
-$a^{4} = softmax(z^{4})$ <br>
+![fp_2](http://latex.codecogs.com/gif.latex?%5Clarge%20%5C%5C%20%24z%5E%7B2%7D%20%3D%20%28W%5E%7B1%7D%29%5E%7BT%7DX%20&plus;%20b%5E%7B1%7D%24%20%5C%5C%20%24a%5E%7B2%7D%20%3D%20sigmod%28z%5E%7B2%7D%29%24%20%5C%5C%20%24z%5E%7B3%7D%20%3D%20%28W%5E%7B2%7D%29%5E%7BT%7Da%5E%7B2%7D%20&plus;%20b%5E%7B2%7D%24%20%5C%5C%20%24a%5E%7B3%7D%20%3D%20sigmod%28z%5E%7B3%7D%29%24%20%5C%5C%20%24z%5E%7B4%7D%20%3D%20%28W%5E%7B3%7D%29%5E%7BT%7Da%5E%7B3%7D%20&plus;%20b%5E%7B3%7D%24%20%5C%5C%20%24a%5E%7B4%7D%20%3D%20softmax%28z%5E%7B4%7D%29%24%20%5C%5C)<br>
 
 #### Cost Function: (m examples and k outputs)<br>
-$J = - \frac{1}{m} \sum_{m} \sum_{i} y_{i}.log(y^{'}_{i}) $ <br>
-$y^{'}=a^{3}$ is the predicted output i.e. softmax($z^{4}$) in this case. <br>
+![cf_2](http://latex.codecogs.com/gif.latex?%5Clarge%20%5C%5C%20J%20%3D%20-%20%5Cfrac%7B1%7D%7Bm%7D%20%5Csum_%7Bm%7D%20%5Csum_%7Bi%7D%20y_%7Bi%7D.log%28y%5E%7B%27%7D_%7Bi%7D%29%20%24%20%5C%5C%20%24y%5E%7B%27%7D%3Da%5E%7B3%7D%24%20is%20the%20predicted%20output%20i.e.%20softmax%28%24z%5E%7B4%7D%24%29%20in%20this%20case.%20%5C%5C)<br>
 
 For output layer:
-$\delta^{4} = (a^{4}_{i}-y_{i})$
+![ol](http://latex.codecogs.com/gif.latex?%5Clarge%20%5C%5C%20%24%5Cdelta%5E%7B4%7D%20%3D%20%28a%5E%7B4%7D_%7Bi%7D-y_%7Bi%7D%29%24)<br>
 
 #### Back propagation:<br>
-$\frac{\partial J}{\partial z^{4}} = \delta ^{4} = (a^{4}-y)$    size [m, k]
+![bp_2](http://latex.codecogs.com/gif.latex?%5Clarge%20%5C%5C%20%5Cfrac%7B%5Cpartial%20J%7D%7B%5Cpartial%20z%5E%7B4%7D%7D%20%3D%20%5Cdelta%20%5E%7B4%7D%20%3D%20%28a%5E%7B4%7D-y%29%20%5C%5C%20%5Cdelta%20%5E%7B3%7D%20%3D%20%28W%5E%7B3%7D%29%5E%7BT%7D%5Cdelta%20%5E%7B4%7D%20%5Codot%20f%27%28z%5E%7B3%7D%29%20%5C%5C%20%5Cdelta%20%5E%7B2%7D%20%3D%20%28W%5E%7B2%7D%29%5E%7BT%7D%5Cdelta%20%5E%7B3%7D%20%5Codot%20f%27%28z%5E%7B2%7D%29%20%5C%5C%20%5Cfrac%7B%5Cpartial%20J%7D%7B%5Cpartial%20W%5E%7B3%7D%7D%20%3D%20%28a%5E%7B3%7D%29%5E%7BT%7D%20%5Cdelta%5E%7B4%7D%20%5C%5C%20%5Cfrac%7B%5Cpartial%20J%7D%7B%5Cpartial%20b%5E%7B3%7D%7D%20%3D%20%5Csum%5E%7Bm%7D%20%5Cdelta%5E%7B4%7D%20%5C%5C%20%5Cfrac%7B%5Cpartial%20J%7D%7B%5Cpartial%20W%5E%7B2%7D%7D%20%3D%20%28a%5E%7B2%7D%29%5E%7BT%7D%20%5Cdelta%5E%7B3%7D%20%5C%5C%20%5Cfrac%7B%5Cpartial%20J%7D%7B%5Cpartial%20b%5E%7B2%7D%7D%20%3D%20%5Csum%5E%7Bm%7D%20%5Cdelta%5E%7B3%7D%20%5C%5C%20%5Cfrac%7B%5Cpartial%20J%7D%7B%5Cpartial%20W%5E%7B1%7D%7D%20%3D%20X%5E%7BT%7D%20%5Cdelta%5E%7B2%7D%20%5C%5C%20%5Cfrac%7B%5Cpartial%20J%7D%7B%5Cpartial%20b%5E%7B1%7D%7D%20%3D%20%5Csum%5E%7Bm%7D%5Cdelta%5E%7B2%7D%20%5C%5C)<br>
 
-$\delta ^{3} = (W^{3})^{T}\delta ^{4} \odot f'(z^{3}) $  ---------size [m,  n_hidden2] <br>
-$\odot $represents item wise product
-
-$\delta ^{2} = (W^{2})^{T}\delta ^{3} \odot f'(z^{2}) $  ---------size [m,  n_hidden1] <br>
-
-$\frac{\partial J}{\partial W^{3}} = (a^{3})^{T} \delta^{4} $  matrix of size [n_hidden2, k]<br>
-$\frac{\partial J}{\partial b^{3}} = \sum^{m} \delta^{4} $ vector of size [1,k]<br> 
-$\frac{\partial J}{\partial W^{2}} = (a^{2})^{T} \delta^{3} $  matrix of size [n_hidden1, n_hidden2]<br>
-$\frac{\partial J}{\partial b^{2}} = \sum^{m} \delta^{3} $ vector of size [1,n_hidden2]<br> 
-$\frac{\partial J}{\partial W^{1}} = X^{T} \delta^{2} $ matrix of size [n_input, n_hidden1]<br>
-$\frac{\partial J}{\partial b^{1}} = \sum^{m}\delta^{2} $ vector of size [1, n_hidden1]<br>
 
 #### Updates:<br>
-$W^{l} = W^{l} - \alpha \frac{\partial J}{\partial W^{l}}$
-$b^{l} = b^{l} - \alpha \frac{\partial J}{\partial b^{l}}$
+![updates](http://latex.codecogs.com/gif.latex?%5Clarge%20%5C%5C%20W%5E%7Bl%7D%20%3D%20W%5E%7Bl%7D%20-%20%5Calpha%20%5Cfrac%7B%5Cpartial%20J%7D%7B%5Cpartial%20W%5E%7Bl%7D%7D%5C%5C%20b%5E%7Bl%7D%20%3D%20b%5E%7Bl%7D%20-%20%5Calpha%20%5Cfrac%7B%5Cpartial%20J%7D%7B%5Cpartial%20b%5E%7Bl%7D%7D)
 
 
 
