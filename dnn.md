@@ -55,7 +55,9 @@ $a^{3} = sigmod(z^{3})$ <br>
 $J = \frac{1}{m} \sum_{i}^{m} \sum_{k} (a^{3}_{k}-y_{k})^{2} $
 
 #### Back propagation:<br>
+```math
 $\frac{\partial J}{\partial z^{3}} = \delta ^{3} = (a^{3}-y)\odot f'(z^{3})$    size [m, k]
+```
 
 $\delta ^{2} = (W^{2})^{T}\delta ^{3} \odot f'(z^{2}) $  ---------size [m,  n_hidden] <br>
 $\odot $represents item wise product
