@@ -47,15 +47,10 @@ Steps:
 #### Forward propogation:<br>
 ![f_prop](http://latex.codecogs.com/gif.latex?%5Clarge%20%5C%5C%20z%5E%7B2%7D%20%3D%20%28W%5E%7B1%7D%29%5E%7BT%7DX%20&plus;%20b%5E%7B1%7D%20%5C%5C%20a%5E%7B2%7D%20%3D%20sigmod%28z%5E%7B2%7D%29%20%5C%5C%20where%20%5C%5C%20sigmoid%28z%29%3D%20%5Cfrac%7B1%7D%7B1&plus;e%5E%7B-z%7D%7D%5C%5C%20z%5E%7B3%7D%20%3D%20%28W%5E%7B2%7D%29%5E%7BT%7Da%5E%7B2%7D%20&plus;%20b%5E%7B2%7D%5C%5C%20a%5E%7B3%7D%20%3D%20sigmod%28z%5E%7B3%7D%29)
 
-$z^{2} = (W^{1})^{T}X + b^{1}$ <br>
-$a^{2} = sigmod(z^{2})$    where $sigmoid(z)= \frac{1}{1+e^{-z}}$
-
-$z^{3} = (W^{2})^{T}a^{2} + b^{2}$ <br>
-$a^{3} = sigmod(z^{3})$ <br>
 
 #### Cost Function: (m examples and k outputs)<br>
 ![cost](http://latex.codecogs.com/gif.latex?%5Clarge%20%5C%5C%20J%20%3D%20%5Cfrac%7B1%7D%7Bm%7D%20%5Csum_%7Bi%7D%5E%7Bm%7D%20%5Csum_%7Bk%7D%20%28a%5E%7B3%7D_%7Bk%7D-y_%7Bk%7D%29%5E%7B2%7D)<br>
-$J = \frac{1}{m} \sum_{i}^{m} \sum_{k} (a^{3}_{k}-y_{k})^{2} $
+!$J = \frac{1}{m} \sum_{i}^{m} \sum_{k} (a^{3}_{k}-y_{k})^{2} $
 
 #### Back propagation:<br>
 ![back_prop](http://latex.codecogs.com/gif.latex?%5Clarge%20%5C%5C%20%5Cfrac%7B%5Cpartial%20J%7D%7B%5Cpartial%20z%5E%7B3%7D%7D%20%3D%20%5Cdelta%20%5E%7B3%7D%20%3D%20%28a%5E%7B3%7D-y%29%5Codot%20f%27%28z%5E%7B3%7D%29%5C%5C%20%5Cdelta%20%5E%7B2%7D%20%3D%20%28W%5E%7B2%7D%29%5E%7BT%7D%5Cdelta%20%5E%7B3%7D%20%5Codot%20f%27%28z%5E%7B2%7D%29%20%5C%5C)
@@ -63,16 +58,16 @@ $J = \frac{1}{m} \sum_{i}^{m} \sum_{k} (a^{3}_{k}-y_{k})^{2} $
 ![back_prop_2](http://latex.codecogs.com/gif.latex?%5Clarge%20%5C%5C%20%5Cfrac%7B%5Cpartial%20J%7D%7B%5Cpartial%20W%5E%7B2%7D%7D%20%3D%20%28a%5E%7B2%7D%29%5E%7BT%7D%20%5Cdelta%5E%7B3%7D%5C%5C%20%5Cfrac%7B%5Cpartial%20J%7D%7B%5Cpartial%20b%5E%7B2%7D%7D%20%3D%20%5Csum%5E%7Bm%7D%20%5Cdelta%5E%7B3%7D%20%5C%5C%20%5Cfrac%7B%5Cpartial%20J%7D%7B%5Cpartial%20W%5E%7B1%7D%7D%20%3D%20X%5E%7BT%7D%20%5Cdelta%5E%7B2%7D%20%5C%5C%20%5Cfrac%7B%5Cpartial%20J%7D%7B%5Cpartial%20b%5E%7B1%7D%7D%20%3D%20%5Csum%5E%7Bm%7D%5Cdelta%5E%7B2%7D%20%5C%5C)
 
 
-$\frac{\partial J}{\partial z^{3}} = \delta ^{3} = (a^{3}-y)\odot f'(z^{3})$    size [m, k]
+!$\frac{\partial J}{\partial z^{3}} = \delta ^{3} = (a^{3}-y)\odot f'(z^{3})$    size [m, k]
 
 
-$\delta ^{2} = (W^{2})^{T}\delta ^{3} \odot f'(z^{2}) $  ---------size [m,  n_hidden] <br>
-$\odot $represents item wise product
+!$\delta ^{2} = (W^{2})^{T}\delta ^{3} \odot f'(z^{2}) $  ---------size [m,  n_hidden] <br>
+!$\odot $represents item wise product
 
-$\frac{\partial J}{\partial W^{2}} = (a^{2})^{T} \delta^{3} $  matrix of size [n_hidden, k]<br>
-$\frac{\partial J}{\partial b^{2}} = \sum^{m} \delta^{3} $ vector of size [1,k]<br> 
-$\frac{\partial J}{\partial W^{1}} = X^{T} \delta^{2} $ matrix of size [n_input, n_hidden]<br>
-$\frac{\partial J}{\partial b^{1}} = \sum^{m}\delta^{2} $ vector of size [1, n_hidden]<br>
+!$\frac{\partial J}{\partial W^{2}} = (a^{2})^{T} \delta^{3} $  matrix of size [n_hidden, k]<br>
+!$\frac{\partial J}{\partial b^{2}} = \sum^{m} \delta^{3} $ vector of size [1,k]<br> 
+!$\frac{\partial J}{\partial W^{1}} = X^{T} \delta^{2} $ matrix of size [n_input, n_hidden]<br>
+!$\frac{\partial J}{\partial b^{1}} = \sum^{m}\delta^{2} $ vector of size [1, n_hidden]<br>
 
 
 #### Updates:<br>
